@@ -30,5 +30,5 @@ interface ApiService {
     ): Call<RegisterResultResponse>
 
     @GET("user")
-    fun getUser(): Call<UserResultResponse>
+    fun getUser(): Call<List<UserResultResponse>>
 }

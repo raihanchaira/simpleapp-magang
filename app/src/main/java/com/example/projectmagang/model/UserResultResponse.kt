@@ -5,8 +5,7 @@ package com.example.projectmagang.model
  */
 import com.google.gson.annotations.SerializedName
 
-
-class UserResultResponse(
+data class UserResultResponse(
     @SerializedName("userId")
     val userId: Int,
     @SerializedName("username")

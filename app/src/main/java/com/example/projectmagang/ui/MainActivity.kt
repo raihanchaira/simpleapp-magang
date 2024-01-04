@@ -3,9 +3,12 @@ package com.example.projectmagang.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.projectmagang.databinding.ActivityMainBinding
+import com.example.projectmagang.model.UserResultResponse
 import com.example.projectmagang.ui.dashboard.AddUserActivity
 import com.example.projectmagang.ui.dashboard.UserAdapter
 import com.example.projectmagang.ui.dashboard.UserViewModel
@@ -22,16 +25,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-        userAdapter = UserAdapter(null)
-
-        setUpRecyclerView()
-
-        userViewModel.getUserListResult().observe(this) { userList ->
+        userAdapter = UserAdapter(emptyList())
+        userViewModel.user.observe(this) { userList ->
             userList?.let {
                 userAdapter.setData(it)
             }
         }
-        userViewModel.getUserList()
+
+        setUpRecyclerView()
 
         binding.fabAdd.setOnClickListener {
             startActivity(Intent(this@MainActivity, AddUserActivity::class.java))
@@ -39,10 +40,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpRecyclerView() {
-        binding.rvUser.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        val layoutManager = LinearLayoutManager(this)
+        binding.rvUser.layoutManager = layoutManager
+        userAdapter = UserAdapter(null)
         binding.rvUser.adapter = userAdapter
+        binding.rvUser.setHasFixedSize(true)
+
+        Log.d("Tes aja", "RecyclerView visibility: ${binding.rvUser.visibility}")
+
     }
+
+
 }
-
-
-

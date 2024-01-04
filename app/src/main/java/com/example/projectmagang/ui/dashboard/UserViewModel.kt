@@ -3,6 +3,7 @@ package com.example.projectmagang.ui.dashboard
 /** Raihan Chaira on 1/4/2024
  * raihanchaira21@gmail.com
  */
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.projectmagang.model.UserResultResponse
@@ -13,28 +14,31 @@ import retrofit2.Response
 
 class UserViewModel : ViewModel() {
 
-    private val userListResult = MutableLiveData<UserResultResponse>()
+    private val _user = MutableLiveData<List<UserResultResponse>>()
+    val user: LiveData<List<UserResultResponse>> = _user
+
+    init {
+        getUserList()
+    }
 
     fun getUserList() {
         val call = ApiConfig.getApiService().getUser()
 
-        call.enqueue(object : Callback<UserResultResponse> {
+        call.enqueue(object : Callback<List<UserResultResponse>> {
             override fun onResponse(
-                call: Call<UserResultResponse>,
-                response: Response<UserResultResponse>
+                call: Call<List<UserResultResponse>>,
+                response: Response<List<UserResultResponse>>
             ) {
                 if (response.isSuccessful) {
-                    userListResult.postValue(response.body())
+                    _user.postValue(response.body())
                 } else {
-                    // Handle unsuccessful response
-                    userListResult.postValue(null)
-                }            }
+                    _user.postValue(null)
+                }
+            }
 
-            override fun onFailure(call: Call<UserResultResponse>, t: Throwable) {
-                userListResult.postValue(null)
+            override fun onFailure(call: Call<List<UserResultResponse>>, t: Throwable) {
+                _user.postValue(null)
             }
         })
     }
-
-    fun getUserListResult() = userListResult
 }

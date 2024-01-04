@@ -1,5 +1,6 @@
 package com.example.projectmagang.ui.dashboard
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,11 +14,15 @@ import com.example.projectmagang.model.UserResultResponse
  */
 class UserAdapter (var listUser : List<UserResultResponse>?) :
     RecyclerView.Adapter<UserAdapter.ViewHolder>(){
-    
-    fun setData(data: UserResultResponse){
-        //listUser = data
-        notifyDataSetChanged()
-    }
+
+    fun setData(data: List<UserResultResponse>?) {
+        listUser = data
+        if (data != null) {
+            listUser = data
+            notifyDataSetChanged()
+        } else {
+            Log.e("UserAdapter", "setData received null data")
+        }    }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvName: TextView = view.findViewById(R.id.name)
@@ -37,6 +42,9 @@ class UserAdapter (var listUser : List<UserResultResponse>?) :
         if (user != null) {
             holder.tvName.text = user.name
             holder.tvEmail.text = user.email
+        } else {
+            holder.tvName.text = "N/A"
+            holder.tvEmail.text = "N/A"
         }
     }
 

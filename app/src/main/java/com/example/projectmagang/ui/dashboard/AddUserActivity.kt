@@ -1,11 +1,14 @@
 package com.example.projectmagang.ui.dashboard
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.projectmagang.R
 import com.example.projectmagang.databinding.ActivityAddUserBinding
+import com.example.projectmagang.ui.MainActivity
+import com.example.projectmagang.ui.login.LoginActivity
 import com.example.projectmagang.ui.register.RegisterViewModel
 
 class AddUserActivity : AppCompatActivity() {
@@ -59,6 +62,8 @@ class AddUserActivity : AppCompatActivity() {
         if (errorMessages.isEmpty()) {
             binding.btSubmit.isEnabled = false
             viewModel.registerUser(username, password, name, email)
+            startActivity(Intent(this@AddUserActivity, MainActivity::class.java))
+            Toast.makeText(this, "Add User Berhasil!", Toast.LENGTH_SHORT).show()
         } else {
             val errorMessage = errorMessages.joinToString("\n")
             Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()

@@ -13,6 +13,7 @@ import com.example.projectmagang.model.UserResultResponse
  */
 class UserAdapter (var listUser : List<UserResultResponse>?) :
     RecyclerView.Adapter<UserAdapter.ViewHolder>(){
+    
     fun setData(data: UserResultResponse){
         //listUser = data
         notifyDataSetChanged()

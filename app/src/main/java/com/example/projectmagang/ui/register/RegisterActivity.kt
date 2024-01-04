@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.projectmagang.databinding.ActivityRegisterBinding
+import com.example.projectmagang.ui.MainActivity
 import com.example.projectmagang.ui.login.LoginActivity
 import com.example.projectmagang.ui.login.LoginViewModel
 
@@ -60,12 +61,13 @@ class RegisterActivity : AppCompatActivity() {
         if (errorMessages.isEmpty()) {
             binding.btRegis.isEnabled = false
             viewModel.registerUser(username, password, name, email)
+            startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
+            Toast.makeText(this, "Register Berhasil!", Toast.LENGTH_SHORT).show()
         } else {
             val errorMessage = errorMessages.joinToString("\n")
             Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
         }
     }
-
 }
 
 

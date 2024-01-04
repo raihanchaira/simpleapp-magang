@@ -61,7 +61,7 @@ class LoginActivity : AppCompatActivity() {
                 binding.btLogin.isEnabled = true
                 Log.d("pesan", "PESAN : ${result?.username}")
                 Log.d("loginHASILID", "User ID: $result.data?.userId")
-                Toast.makeText(this, "Login success!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Login Berhasil!", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this@LoginActivity, MainActivity::class.java)
                 startActivity(intent)
                 finish()
